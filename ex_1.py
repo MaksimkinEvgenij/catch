@@ -69,10 +69,15 @@ def click(event):
                     score += 2
                 canv.delete(balls[i][0])
                 balls[i] = None
-    
+
+
+def save_score_in_the_end_of_program():
+    with open('results.txt', 'a') as file:
+        file.write(f'{score}\n')
 
 new_ball()
 move_balls()
 canv.bind('<Button-1>', click)
 mainloop()
+save_score_in_the_end_of_program()
 
