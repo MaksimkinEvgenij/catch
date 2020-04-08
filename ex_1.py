@@ -24,7 +24,12 @@ def new_ball():
     dx = rnd (-10, 10)
     dy = rnd (-10, 10)
     r = rnd(30,50)
-    balls.append([canv.create_oval(x-r,y-r,x+r,y+r,fill = choice(colors), width=0), x, y, dx, dy, r])
+
+    if rnd(0,2) == 0:
+        balls.append([canv.create_rectangle(x-r,y-r,x+r,y+r,fill = choice(colors), width=0), x, y, dx, dy, r, 'rectangle'])
+    else:
+        balls.append([canv.create_oval(x-r,y-r,x+r,y+r,fill = choice(colors), width=0), x, y, dx, dy, r, 'oval'])
+
     
     root.after(1000,new_ball)
 
@@ -58,12 +63,16 @@ def click(event):
         if balls[i]:
             if ((balls[i][1] - event.x)**2 + (balls[i][2] - event.y)**2)**(1/2) <= balls[i][5]:
                 print('Попал')
+                if balls[i][6] == 'rectangle':
+                    score += 1
+                elif balls[i][6] == 'oval':
+                    score += 2
                 canv.delete(balls[i][0])
                 balls[i] = None
-                score += 1
-        
+    
 
 new_ball()
 move_balls()
 canv.bind('<Button-1>', click)
 mainloop()
+
