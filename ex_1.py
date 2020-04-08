@@ -9,6 +9,8 @@ canv.pack(fill=BOTH,expand=1)
 
 colors = ['red','orange','yellow','green','blue']
 def new_ball():
+    """ Создание очередного шара. """
+
     global x,y,r
     canv.delete(ALL)
     x = rnd(100,700)
@@ -19,7 +21,13 @@ def new_ball():
 
 
 def click(event):
+
+    """ Проверка попадания щелчком мыши в шар. """
+    if ((x - event.x)**2 + (y - event.y)**2)**(1/2) <= r:
+        print('Попал')
+
     print(x,y,r)
+
 
 new_ball()
 canv.bind('<Button-1>', click)
